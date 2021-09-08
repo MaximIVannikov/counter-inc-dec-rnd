@@ -11,10 +11,16 @@ const {dispatch} = store;
 //   dispatch(creator(...args));
 // }
 
-const incDispatch = bindActionCreators(inc, dispatch);
-const decDispatch = bindActionCreators(dec, dispatch);
-const zeroDispatch = bindActionCreators(zero, dispatch);
-const rndDispatch = bindActionCreators(rnd, dispatch);
+const {incDispatch, decDispatch,rndDispatch, zeroDispatch} = bindActionCreators(
+  {
+    incDispatch: inc,
+    decDispatch: dec,
+    rndDispatch: rnd,
+    zeroDispatch: zero
+  }
+  ,dispatch
+);
+
 
 document.getElementById('inc').addEventListener('click', incDispatch);
 document.getElementById('dec').addEventListener('click', decDispatch);
