@@ -1,17 +1,44 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {createStore} from 'redux';
+import reducer from './reducer';
+import { inc, dec, rnd, zero } from './actions';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const store = createStore(reducer);
+
+const {dispatch} = store;
+
+const incDispatch = () => dispatch(inc());
+const decDispatch = () => dispatch(dec());
+const zeroDispatch = () => dispatch(zero());
+const rndDispatch = (value) => dispatch(rnd(value));
+
+document.getElementById('inc').addEventListener('click', incDispatch);
+document.getElementById('dec').addEventListener('click', decDispatch);
+document.getElementById('zero').addEventListener('click', zeroDispatch);
+document.getElementById('rnd').addEventListener('click', () => {
+  const value = Math.floor(Math.random() * 10);
+  rndDispatch(value)
+});
+
+const update = () => {
+  document.getElementById('counter').textContent = store.getState();
+}
+
+
+store.subscribe(update);
+
+// store.dispatch({type:'INC'});
+
+// store.dispatch({type:'INC'});
+
+// store.dispatch({type:'INC'});
+
+
+
+
+// let state = reducer(undefined, {type:'INC'});
+
+// state = reducer(state, {type:'INC'});
+// console.log(state);
+// state = reducer(state, {type:'INC'});
+// console.log(state);
