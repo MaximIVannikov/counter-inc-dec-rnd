@@ -7,10 +7,14 @@ const store = createStore(reducer);
 
 const {dispatch} = store;
 
-const incDispatch = () => dispatch(inc());
-const decDispatch = () => dispatch(dec());
-const zeroDispatch = () => dispatch(zero());
-const rndDispatch = (value) => dispatch(rnd(value));
+const bindActionCreator = (creator, dispatch) => (...args) => {
+  dispatch(creator(...args));
+}
+
+const incDispatch = bindActionCreator(inc, dispatch);
+const decDispatch = bindActionCreator(dec, dispatch);
+const zeroDispatch = bindActionCreator(zero, dispatch);
+const rndDispatch = bindActionCreator(rnd, dispatch);
 
 document.getElementById('inc').addEventListener('click', incDispatch);
 document.getElementById('dec').addEventListener('click', decDispatch);
